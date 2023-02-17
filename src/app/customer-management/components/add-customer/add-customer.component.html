@@ -1,0 +1,112 @@
+<!-- Portfolio Modal 2-->
+<div class="modal fade" id="clientModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form #clientForm="ngForm" (ngSubmit)="SaveClient(clientForm)">
+                <div class="modal-header border-0">
+                    <img src="/assets/images/avatars/avatar1.png" alt="avatar1" width="50px" height="50px">
+                    <div class="modal-title ml-3">
+                        Add Customer
+                    </div>
+                    <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center pb-5">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group mb-2">
+                                    <label for="" class="pull-left">first name</label>
+                                    <input type="text" ngModel name="prenom" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group mb-2">
+                                    <label for="" class="pull-left">last name</label>
+                                    <input type="text" ngModel name="nom" class="form-control" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group mb-2">
+                                    <label for="" class="pull-left">username</label>
+                                    <input type="text" ngModel name="username" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group mb-2">
+                                    <label for="" class="pull-left">password</label>
+                                    <input type="password" ngModel name="password" class="form-control" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group mb-2">
+                                    <label for="" class="pull-left">address</label>
+                                    <input type="text" ngModel name="address" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group mb-2">
+                                    <label for="" class="pull-left">phone</label>
+                                    <input type="number" ngModel name="telephone" class="form-control" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group mb-2">
+                                    <label for="" class="pull-left">E-mail</label>
+                                    <input type="email" ngModel name="email" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group mb-2">
+                                    <label for="" class="pull-left">postal code</label>
+                                    <input type="text" ngModel name="codePostal" class="form-control" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group mb-2">
+                                    <div class="file-input-container">
+                                        <button class="file-input">
+                                          Choose File
+                                          <input type="file"  ngModel name="image" required (change)="onFileSelected($event)">
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group mb-2">
+                                    <label for="" class="pull-left"></label>
+                                    <div class="row">
+                                        <div class="col-3 m-1">
+                                            <span class="badge bg-danger">blocked</span> <input type="radio" ngModel name="status" value="true" required>
+                                        </div>
+                                        <div class="col-3 m-1">
+                                            <span class="badge bg-success">publish </span> <input type="radio" ngModel name="status" value="false" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-warning" id="closeModal" data-bs-dismiss="modal">
+                          cancel
+                        </button>
+                            <button type="submit" [disabled]="clientForm.invalid || (isloading$ |async) " class="btn btn-info">
+                          <i *ngIf="isloading$ |async" class="spinner-border spinner-border-sm"></i>
+                          <span *ngIf="isloading$ |async">Saving...</span>
+                          <span *ngIf="!(isloading$ |async)">Add</span>
+                        </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

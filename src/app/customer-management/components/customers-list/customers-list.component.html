@@ -1,0 +1,64 @@
+<ng-container *ngIf="(appState$ | async) as appState" [ngSwitch]="appState.dataState">
+    <ng-container *ngSwitchCase="DataState.LOADING_STATE">
+        <div class="col-md-12 single-note-item text-center mb-2">
+            <div class="spinner-border text-secondary" role="status"> </div>
+        </div>
+    </ng-container>
+    <ng-container *ngSwitchCase="DataState.LOADED_STATE">
+        <div class="card">
+            <div class="card-body">
+                <div class="m-2">
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#clientModal" class="btn btn-sm btn-primary">
+                      <i class="bi bi-person-plus-fill"></i>
+                      Add new customer
+                    </button>
+                </div>
+                <!-- Table with stripped rows -->
+                <table class="table table-hover" *ngIf="appState.appData">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Image</th>
+                            <th scope="col">Last name</th>
+                            <th scope="col">First name</th>
+                            <th scope="col">Phone</th>
+                            <th scope="col">E-mail</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let client of appState.appData.data.clients | slice: (page-1) * pageSize : page * pageSize let i = index;">
+                        <tr>
+                            <th scope="row">{{i+1}}</th>
+                            <th scope="row"><img *ngIf="client.image" [src]='client.image' alt="imgClient" width="40" height="40"></th>
+                            <td>{{client.nom}}</td>
+                            <td>{{client.prenom}}</td>
+                            <td>{{client.telephone}}</td>
+                            <td>{{client.email}}</td>
+                            <td>{{client.status}}</td>
+                            <td>
+                                <a class="btn btn-sm btn-danger">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                                <button (click)="onEdit(client)" class="btn btn-sm btn-primary m-1">
+                                    <i class="ri-edit-2-fill"></i>
+                                </button>
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+                </table>
+                <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="(appState.appData?.data?.clients?.length || 0)"></ngb-pagination>
+
+            </div>
+        </div>
+    </ng-container>
+    <ng-container *ngSwitchCase="DataState.ERROR_STATE">
+        <div *ngIf="appState.error" class="alert alert-danger p-1 m-2">
+            {{appState.error}}
+        </div>
+    </ng-container>
+</ng-container>
+
+<app-add-customer [isloading$]="isloading$"></app-add-customer>
